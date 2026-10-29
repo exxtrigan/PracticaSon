@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 public class VentanaMatrizHilos extends JFrame {
     HiloCazador hcaz;
     HiloClima hcli;
-    HiloLimpiador HiloL;
+    HiloLimpiador HiloLimpiador;
     HiloRebotador hreb;
     HiloSerpiente hser;
 
@@ -278,35 +278,22 @@ public class VentanaMatrizHilos extends JFrame {
     // -----------------------------------------------------------------
     // Métodos privados para manejo de eventos (Limpiador)
     // -----------------------------------------------------------------
-    private void iniciarLimpiador() {
-        System.out.println("Evento: Iniciar Limpiador");
-    }
-
-    private void pausarLimpiador() {
-        System.out.println("Evento: Pausar Limpiador");
-    }
-
-    private void terminarLimpiador() {
-        System.out.println("Evento: Terminar Limpiador");
-    }
-
-    // Métodos auxiliares para acceso de los estudiantes
     public JLabel[][] getMatrizLabels() {
         return matriz;
     }
 
     private void IniciarLimpiador() {
-        if (HiloL == null || !HiloL.isAlive()) {
-            HiloL = new HiloL(this);
-            HiloL.start();
+        if (HiloLimpiador == null || !HiloLimpiador.isAlive()) {
+            HiloLimpiador = new HiloLimpiador(this);
+            HiloLimpiador.start();
         }
     }
     
     private void PausarLimpiador() {
-        if (HiloL != null && HiloL.isAlive()) HiloL.pausarOContinuar();
+        if (HiloLimpiador != null && HiloLimpiador.isAlive()) HiloLimpiador.Pausar();
     }
     
     private void TerminarLimpiador() {
-        if (HiloL != null) HiloL.terminar();
+        if (HiloLimpiador != null) HiloLimpiador.Terminar();
     }
 }
