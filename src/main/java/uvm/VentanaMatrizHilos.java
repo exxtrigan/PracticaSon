@@ -213,19 +213,19 @@ public class VentanaMatrizHilos extends JFrame {
         btIniciarL.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                iniciarLimpiador();
+                IniciarLimpiador();
             }
         });
         btPausaL.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                pausarLimpiador();
+                PausarLimpiador();
             }
         });
         btTerminarL.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                terminarLimpiador();
+                TerminarLimpiador();
             }
         });
     }
@@ -284,20 +284,7 @@ private void terminarClima() {
     // -----------------------------------------------------------------
     // Métodos privados para manejo de eventos (Limpiador)
     // -----------------------------------------------------------------
-    private void iniciarLimpiador() {
-        System.out.println("Evento: Iniciar Limpiador");
-    }
-
-    private void pausarLimpiador() {
-        System.out.println("Evento: Pausar Limpiador");
-    }
-
-    private void terminarLimpiador() {
-        System.out.println("Evento: Terminar Limpiador");
-    }
-
-    // Métodos auxiliares para acceso de los estudiantes
-    public JLabel[][] getMatrizLabels() {
+    public JLabel[][] GetMatrizLabels() {
         return matriz;
     }
 
@@ -309,10 +296,22 @@ private void terminarClima() {
     }
     
     private void PausarLimpiador() {
-        if (HiloLimpiador != null && HiloLimpiador.isAlive()) HiloLimpiador.pausarOContinuar();
+        if (HiloLimpiador != null && HiloLimpiador.isAlive()) HiloLimpiador.Pausar();
     }
     
     private void TerminarLimpiador() {
-        if (HiloLimpiador != null) HiloLimpiador.terminar();
+        if (HiloLimpiador != null) HiloLimpiador.Terminar();
+    }
+
+    public void LimpiarBloque() {
+        SwingUtilities.invokeLater(() -> {
+            for (int f = 0; f < 3; f++) {
+                for (int c = 0; c < 3; c++) {
+                    matriz[f][c].setText("-");
+                    matriz[f][c].setForeground(Color.BLACK);
+                    matriz[f][c].setBackground(Color.WHITE);
+                }
+            }
+        });
     }
 }
