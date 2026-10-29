@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 public class VentanaMatrizHilos extends JFrame {
     HiloCazador hcaz;
     HiloClima hcli;
-    HiloLimpiador hlim;
+    HiloLimpiador HiloLimpiador;
     HiloRebotador hreb;
     HiloSerpiente hser;
 
@@ -149,26 +149,6 @@ public class VentanaMatrizHilos extends JFrame {
     }
 
     private void asociarEventos() {
-        // Eventos Hilo Serpiente
-        btIniciarS.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                iniciarSerpiente();
-            }
-        });
-        btPausaS.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                pausarSerpiente();
-            }
-        });
-        btTerminarS.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                terminarSerpiente();
-            }
-        });
-
         // Eventos Hilo Cazador
         btIniciarC.addActionListener(new ActionListener() {
             @Override
@@ -251,21 +231,6 @@ public class VentanaMatrizHilos extends JFrame {
     }
 
     // -----------------------------------------------------------------
-    // Métodos privados para manejo de eventos (Serpiente)
-    // -----------------------------------------------------------------
-    private void iniciarSerpiente() {
-        System.out.println("Evento: Iniciar Serpiente");
-    }
-
-    private void pausarSerpiente() {
-        System.out.println("Evento: Pausar Serpiente");
-    }
-
-    private void terminarSerpiente() {
-        System.out.println("Evento: Terminar Serpiente");
-    }
-
-    // -----------------------------------------------------------------
     // Métodos privados para manejo de eventos (Cazador)
     // -----------------------------------------------------------------
     private void iniciarCazador() {
@@ -330,4 +295,18 @@ public class VentanaMatrizHilos extends JFrame {
         return matriz;
     }
 
+    private void IniciarLimpiador() {
+        if (HiloLimpiador == null || !HiloLimpiador.isAlive()) {
+            HiloLimpiador = new HiloLimpiador(this);
+            HiloLimpiador.start();
+        }
+    }
+    
+    private void PausarLimpiador() {
+        if (HiloLimpiador != null && HiloLimpiador.isAlive()) HiloLimpiador.pausarOContinuar();
+    }
+    
+    private void TerminarLimpiador() {
+        if (HiloLimpiador != null) HiloLimpiador.terminar();
+    }
 }
