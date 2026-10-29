@@ -5,65 +5,75 @@ import java.awt.*;
 
 public class HiloLimpiador extends Thread {
     private final VentanaMatrizHilos ventana;
-    private volatile boolean activo = true;
-    private volatile boolean pausa = false;
+    private volatile boolean Activo = true;
+    private volatile boolean Pausa = false;
 
-    public HiloLimpiador(VentanaMatrizHilos ventana) {
+    public HiloLimpiador(VentanaMatrizHilos ventana)
+    {
         this.ventana = ventana;
     }
 
-    public void pausarOContinuar() {
-        pausa = !pausa;
+    public void Pausar()
+    {
+        Pausa = !Pausa;
         synchronized (this) {
             notifyAll();
         }
     }
 
-    public boolean estaPausado() {
-        return pausa;
+    public boolean EstaPausado()
+    {
+        return Pausa;
     }
 
-    public void terminar() {
-        activo = false;
-        synchronized (this) {
+    public void Terminar()
+    {
+        Activo = false;
+        synchronized (this)
+        {
             notifyAll();
         }
         interrupt();
     }
 
-    private void esperarPausa() throws InterruptedException {
-        synchronized (this) {
-            while (pausa && activo) wait();
+    private void EsperarPausa() throws InterruptedException
+    {
+        synchronized (this)
+        {
+            while (Pausa && Activo) wait();
         }
     }
 
     @Override
-    public void run() {
-        while (activo) {
-            try {
-                esperarPausa();
-                if (!activo) break;
+    public void run()
+    {
+        while (Activo)
+            {
+            try
+            {
+                EsperarPausa();
+                if (!Activo) break;
 
-                JLabel[][] matriz = ventana.getMatrizLabels();
-                int modificadas = 0;
+                JLabel[][] Matriz = ventana.GetMatrizLabels();
+                int Modificadas = 0;
 
-                for (int f = 0; f < 15; f++) {
-                    for (int c = 0; c < 15; c++) {
-                        if (!"-".equals(matriz[f][c].getText())
-                                || !matriz[f][c].getForeground()
-                                .equals(Color.BLACK)) {
-                            modificadas++;
+                for (int f = 0; f < 15; f++)
+                    {
+                        for (int c = 0; c < 15; c++)
+                            {
+                            if (!"-".equals(Matriz[f][c].getText()) || !Matriz[f][c].getForeground().equals(Color.BLACK)) {
+                            Modificadas++;
                         }
                     }
                 }
 
-                if (modificadas > 112) {
-                    ventana.limpiarBloque();
+                if (Modificadas > 112) {
+                    ventana.LimpiarBloque();
                 }
 
                 Thread.sleep(500);
             } catch (InterruptedException e) {
-                if (!activo) break;
+                if (!Activo) break;
             }
         }
     }

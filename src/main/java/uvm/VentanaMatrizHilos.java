@@ -213,19 +213,19 @@ public class VentanaMatrizHilos extends JFrame {
         btIniciarL.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                iniciarLimpiador();
+                IniciarLimpiador();
             }
         });
         btPausaL.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                pausarLimpiador();
+                PausarLimpiador();
             }
         });
         btTerminarL.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                terminarLimpiador();
+                TerminarLimpiador();
             }
         });
     }
@@ -278,7 +278,7 @@ public class VentanaMatrizHilos extends JFrame {
     // -----------------------------------------------------------------
     // Métodos privados para manejo de eventos (Limpiador)
     // -----------------------------------------------------------------
-    public JLabel[][] getMatrizLabels() {
+    public JLabel[][] GetMatrizLabels() {
         return matriz;
     }
 
@@ -295,5 +295,17 @@ public class VentanaMatrizHilos extends JFrame {
     
     private void TerminarLimpiador() {
         if (HiloLimpiador != null) HiloLimpiador.Terminar();
+    }
+
+    public void LimpiarBloque() {
+        SwingUtilities.invokeLater(() -> {
+            for (int f = 0; f < 3; f++) {
+                for (int c = 0; c < 3; c++) {
+                    matriz[f][c].setText("-");
+                    matriz[f][c].setForeground(Color.BLACK);
+                    matriz[f][c].setBackground(Color.WHITE);
+                }
+            }
+        });
     }
 }
