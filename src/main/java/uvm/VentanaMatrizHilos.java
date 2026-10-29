@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 public class VentanaMatrizHilos extends JFrame {
     HiloCazador hcaz;
     HiloClima hcli;
-    HiloLimpiador HiloLimpiador;
+    HiloLimpiador HiloL;
     HiloRebotador hreb;
     HiloSerpiente hser;
 
@@ -296,17 +296,17 @@ public class VentanaMatrizHilos extends JFrame {
     }
 
     private void IniciarLimpiador() {
-        if (HiloLimpiador == null || !HiloLimpiador.isAlive()) {
-            HiloLimpiador = new HiloLimpiador(this);
-            HiloLimpiador.start();
+        if (HiloL == null || !HiloL.isAlive()) {
+            HiloL = new HiloL(this);
+            HiloL.start();
         }
     }
     
     private void PausarLimpiador() {
-        if (HiloLimpiador != null && HiloLimpiador.isAlive()) HiloLimpiador.pausarOContinuar();
+        if (HiloL != null && HiloL.isAlive()) HiloL.pausarOContinuar();
     }
     
     private void TerminarLimpiador() {
-        if (HiloLimpiador != null) HiloLimpiador.terminar();
+        if (HiloL != null) HiloL.terminar();
     }
 }
