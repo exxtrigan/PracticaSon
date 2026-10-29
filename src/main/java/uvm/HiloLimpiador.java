@@ -72,7 +72,9 @@ public class HiloLimpiador extends Thread {
                 }
 
                 Thread.sleep(500);
-            } catch (InterruptedException e) {
+            }
+            catch (InterruptedException e)
+            {
                 if (!Activo) break;
             }
         }
