@@ -234,16 +234,19 @@ public class VentanaMatrizHilos extends JFrame {
     // Métodos privados para manejo de eventos (Cazador)
     // -----------------------------------------------------------------
     private void iniciarCazador() {
-        System.out.println("Evento: Iniciar Cazador");
+    if (hcaz == null || !hcaz.isAlive()) {
+        hcaz = new HiloCazador(this);
+        hcaz.start();
     }
+}
 
-    private void pausarCazador() {
-        System.out.println("Evento: Pausar Cazador");
-    }
+private void pausarCazador() {
+    if (hcaz != null && hcaz.isAlive()) hcaz.pausarOContinuar();
+}
 
-    private void terminarCazador() {
-        System.out.println("Evento: Terminar Cazador");
-    }
+private void terminarCazador() {
+    if (hcaz != null) hcaz.terminar();
+}
 
     // -----------------------------------------------------------------
     // Métodos privados para manejo de eventos (Rebotador)
